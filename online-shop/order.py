@@ -10,9 +10,16 @@ class Cart:
         self.total_price = 0.0
         self.date = date.today()
 
+    @property
+    def total_price(self):
+        return self.total_price
+    @total_price.setter
+    def total_price(self):
+        self.total_price = sum([p.price for p in self.products])
+
+
     def add_voucher(self, offer_code: str) -> None:
-        # Logic for adding a voucher
-        pass
+        self.total_price -= (self.total_price * 30) / 100
 
     def add_product(self, product: Product) -> None:
         self.products.append(product)

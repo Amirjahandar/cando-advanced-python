@@ -10,7 +10,7 @@ class Product:
         self.description = description
 
     def get_details(self) -> str:
-        return f"{self.name} by {self.brand} - ${self.price}"
+        return f"{self.name} by {self.brand} - {self.price}"
 
     def delete_product(self) -> str:
         # Logic for deleting a product

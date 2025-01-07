@@ -2,15 +2,56 @@ from typing import List, Optional
 from datetime import date
 from product import *
 from order import *
-
+import re
 class User:
     def __init__(self, name: str, family: str, phone: str, email: str, username: str, password: str):
-        self.name = name
-        self.family = family
-        self.phone = phone
-        self.email = email
+        self.__name = name
+        self.__family = family
+        self.__phone = phone
+        self.__email = email
         self.username = username
         self.password = password
+
+    @property
+    def __name(self):
+        return self.__name
+    @__name.setter
+    def __name(self, name):
+        if name.isalpha():
+            self.__name = name
+        else:
+            return "name must be alphabet!!"
+
+    @property
+    def __family(self):
+        return self.__family
+    @__family.setter
+    def __family(self, family):
+        if family.isalpha():
+            self.__family = family
+        else:
+            return "family must be alphabet!!!"
+
+    @property
+    def __phone(self):
+        return self.__phone
+    @__phone.setter
+    def __phone(self, phone):
+        if phone.isdigit() and len(phone) == 11:
+            self.__phone = phone
+        else:
+            return "phone number is invalid!!!"
+
+    @property
+    def __email(self):
+        return self.__email
+    @__email.setter
+    def __email(self, email):
+        valid = re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email)
+        if valid:
+            self.__email = email
+        else:
+            return "email is invalid!!!"
 
     def login(self) -> bool:
         # Logic for login
@@ -54,6 +95,7 @@ class Admin(User):
     def __init__(self, name: str, family: str, phone: str, email: str, username: str, password: str, admin_level: int):
         super().__init__(name, family, phone, email, username, password)
         self.admin_level = admin_level
+
         self.permissions: List[str] = []
 
     def manage_users(self) -> None:
